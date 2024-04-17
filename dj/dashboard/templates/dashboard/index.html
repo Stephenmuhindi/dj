@@ -11,7 +11,11 @@
                 <div>
                     <a href="{% url 'khejas:detail' khejas.id %}">
                         <div>
-                            <img src="{{ khejas.image.url }}" class="rounded-t-xl">
+                            {% if khejas.image and khejas.image.exists %}
+                                <img src="{{ khejas.image.url }}" class="rounded-t-xl">
+                            {% else %}
+                                <img src="khejas/media/image.jpg" class="rounded-t-xl" alt="Default Image">
+                            {% endif %}
                         </div>
 
                         <div class="p-6 bg-white rounded-b-xl">

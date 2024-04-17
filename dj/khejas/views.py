@@ -9,7 +9,7 @@ def khejass(request):
     query = request.GET.get('query', '')
     category_id = request.GET.get('category', 0)
     categories = Category.objects.all()
-    khejass = Khejas.objects.filter(is_sold=False)
+    khejass = Khejas.objects.filter(is_vacant=False)
 
     if category_id:
         khejass = khejass.filter(category_id=category_id)
@@ -17,7 +17,7 @@ def khejass(request):
     if query:
         khejass = khejass.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
-    return render(request, 'khejas/khejass.html', {
+    return render(request, 'khejas/khejas.html', {
         'khejass': khejass,
         'query': query,
         'categories': categories,
@@ -25,8 +25,9 @@ def khejass(request):
     })
 
 def detail(request, pk):
+    khejas = Khejas.objects.all()
     khejas = get_object_or_404(khejas, pk=pk)
-    related_khejass = Khejas.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:5]
+    related_khejass = Khejas.objects.filter(category=khejas.category, is_vacant=False).exclude(pk=pk)[0:5]
 
     return render(request, 'khejas/detail.html', {
         'khejas': khejas,
