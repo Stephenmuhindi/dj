@@ -5,7 +5,7 @@ from khejas.models import Category, Khejas
 from .forms import SignupForm
 
 def index(request):
-    khejass = Khejas.objects.filter(is_vacant=False)[0:6]
+    khejass = Khejas.objects.filter(is_vacant=False)[0:9]
     categories = Category.objects.all()
 
     return render(request, 'core/index.html', {
@@ -15,6 +15,13 @@ def index(request):
 
 def contact(request):
     return render(request, 'core/contact.html')
+def About(request):
+    return render(request, 'core/about.html')
+def terms_and_cond(request):
+    return render(request, 'core/terms_and_cond.html')
+def policy(request):
+    return render(request, 'core/policy.html')
+
 
 def signup(request):
     if request.method == 'POST':

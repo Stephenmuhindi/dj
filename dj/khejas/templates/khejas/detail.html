@@ -28,7 +28,7 @@
                 <a href="{% url 'khejas:delete' khejas.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Delete</a>
             </div>
         {% else %}  
-            <a href="{% url 'conversation:new' khejas.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact landlord</a>
+            <a href="{% url 'conversations:new' khejas.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact landlord</a>
         {% endif %}
     </div>
 </div>
@@ -39,7 +39,7 @@
     <div class="grid grid-cols-3 gap-3">
         {% for khejas in related_khejass %}
             <div>
-                <a href="{% url 'khejas:detail' item.id %}">
+                <a href="{% url 'khejas:detail' khejas.id %}">
                     <div>
                         <img src="{{ khejas.image.url }}" class="rounded-t-xl">
                     </div>

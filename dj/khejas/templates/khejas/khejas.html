@@ -35,7 +35,7 @@
             <div class="grid grid-cols-3 gap-3">
                 {% for khejas in khejass %}
                     <div>
-                        <a href="{% url 'khejas:detail' item.id %}">
+                        <a href="{% url 'khejas:detail' khejas.id %}">
                             <div>
                                 <img src="{{ khejas.image.url }}" class="rounded-t-xl">
                             </div>

@@ -9,7 +9,7 @@ def khejass(request):
     query = request.GET.get('query', '')
     category_id = request.GET.get('category', 0)
     categories = Category.objects.all()
-    khejass = Khejas.objects.filter(is_vacant=False)
+    khejass = Khejas.objects.filter(is_sold=False)
 
     if category_id:
         khejass = khejass.filter(category_id=category_id)
@@ -25,8 +25,8 @@ def khejass(request):
     })
 
 def detail(request, pk):
-    khejas = get_object_or_404(Khejas, pk=pk)
-    related_khejass = Khejas.objects.filter(category=khejas.category, is_vacant=False).exclude(pk=pk)[0:3]
+    khejas = get_object_or_404(khejas, pk=pk)
+    related_khejass = Khejas.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:5]
 
     return render(request, 'khejas/detail.html', {
         'khejas': khejas,
@@ -54,7 +54,7 @@ def new(request):
 
 @login_required
 def edit(request, pk):
-    khejas = get_object_or_404(khejas, pk=pk, created_by=request.user)
+    khejas = get_object_or_404(Khejas, pk=pk, created_by=request.user)
 
     if request.method == 'POST':
         form = EditKhejasForm(request.POST, request.FILES, instance=khejas)
@@ -62,7 +62,7 @@ def edit(request, pk):
         if form.is_valid():
             form.save()
 
-            return redirect('khejas:detail', pk=Khejas.id)
+            return redirect('item:detail', pk=khejas.id)
     else:
         form = EditKhejasForm(instance=khejas)
 
@@ -73,7 +73,7 @@ def edit(request, pk):
 
 @login_required
 def delete(request, pk):
-    khejas = get_object_or_404(khejas, pk=pk, created_by=request.user)
+    khejas = get_object_or_404(Khejas, pk=pk, created_by=request.user)
     khejas.delete()
 
     return redirect('dashboard:index')
